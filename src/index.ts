@@ -28,6 +28,8 @@ const getRecentPagerMessages = async (): Promise<Page[]> => {
 	for (const entry of tableEntries) {
 		const cells = entry.cells;
 
+		console.log(cells[1])
+
 		pages.push(new Page(
 			cells[0].textContent as string,
 			cells[1].textContent as string,
@@ -38,32 +40,11 @@ const getRecentPagerMessages = async (): Promise<Page[]> => {
 	return pages;
 }
 
-const getPagerMessagesByCapcodes = async (capcodes: string[]): Promise<Page[]> => {
-	const recentPages = await getRecentPagerMessages();
-
-	let pages: Page[] = [];
-
-	for (const page of recentPages) {
-		if (!page.checkCapcode(capcodes)) continue;
-
-		pages.push(page);
-	}
-
-	return pages;
-}
-
-const getCapcodes = (): string[] => {
-	const rawCapcodes = process.env.CAPCODES;
-
-	console.log(rawCapcodes);
-
-	return rawCapcodes.split(";");
-}
-
 const main = async () => {
-	const pages = await getPagerMessagesByCapcodes(getCapcodes());
+	const pages = await getRecentPagerMessages();
 
 	console.log(pages);
 }
 
 main().finally();
+

@@ -4,7 +4,7 @@ class Page {
 	nature: Nature;
 	capcode: string;
 	timestamp: Date;
-	message: string;
+	message: [key:string]: string;
 
 	constructor(capcode: string, timestamp: string, message: string) {
 		this.capcode = capcode;
